@@ -10,22 +10,22 @@ from tensorflow.keras.applications.efficientnet import preprocess_input
 from tensorflow.keras.models import load_model
 import tensorflow as tf
 
-def aws_model(file):
+def aws_model(file_model):
     s3 = boto3.resource('s3')
-    obj = s3.Object(bucket_name='covidprojectmodel', key=file)
-    with open('object1', 'wb') as data:
+    obj = s3.Object(bucket_name='covidprojectmodel', key=file_model)
+    with open('object', 'wb') as data:
         obj.download_fileobj(data)
-    model = tf.keras.models.load_model('object1')
+    model = tf.keras.models.load_model('object')
     return model
 
-file = 'cnn_model_fine.h5'
+file_model = 'cnn_model_fine.h5'
 #file = 'cnn_model_fine.zip'
 
 @st.cache(allow_output_mutation=True)
 def download_model():
     #st.warning("""Loading model""")
     start_time = time.time()
-    model = aws_model(file)
+    model = aws_model(file_model)
     end_time = time.time()
     load_time = (end_time - start_time) / 60
     return model, load_time
