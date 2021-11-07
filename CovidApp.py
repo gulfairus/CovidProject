@@ -44,8 +44,8 @@ def predict_covid(filename, model):
     imges = img.resize((150,150))
     images = np.array(imges)
     # for images that has 4 channels, we convert them into 3 channels
-    #if images.shape[2] == 4:
-    #    images = images[..., :3]
+    if images.shape[3] == 4:
+        images = images[..., :3]
     images = np.expand_dims(images, axis=0)
     #images = images/255
     images = preprocess_input(images)
