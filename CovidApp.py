@@ -13,9 +13,9 @@ import tensorflow as tf
 def aws_model(file_model):
     s3 = boto3.resource('s3')
     obj = s3.Object(bucket_name='covidprojectmodel', key=file_model)
-    with open('object', 'wb') as data:
+    with open('object1', 'wb') as data:
         obj.download_fileobj(data)
-    model = tf.keras.models.load_model('object')
+    model = tf.keras.models.load_model('object1')
     return model
 
 file_model = 'cnn_model_fine.h5'
@@ -47,6 +47,8 @@ def predict_covid(filename, model):
     if len(images.shape)>2:
         if images.shape[2] == 4:
             images = images[..., :3]
+    else:
+        images = images.reshape((150, 150, 1))
     images = np.expand_dims(images, axis=0)
     #images = images/255
     images = preprocess_input(images)
@@ -78,7 +80,7 @@ st.title("""
 #st.header("from Chest X-ray images")
 st.warning("""This is a COVID-19 classification web app to classify patients as either COVID 
 infected or healthy or have opacity/pneumonia using their chest x-ray scans""")
-file = st.file_uploader("Please upload an image file", type=["jpg", "png"])
+file = st.file_uploader("Please upload an image file", type=["jpg", "png", "jpeg"])
 
 if file is not None:
     caption1, caption2 = predict_covid(file, model)
