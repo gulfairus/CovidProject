@@ -89,3 +89,5 @@ if file is not None:
 #st.image(pics[pic], use_column_width=True, caption=0)
 
     st.image(file, use_column_width=True, caption=st.write(caption2, caption1))
+
+del 'object1'
