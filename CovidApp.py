@@ -90,4 +90,4 @@ if file is not None:
 
     st.image(file, use_column_width=True, caption=st.write(caption2, caption1))
 
-del 'object1'
+del object1
