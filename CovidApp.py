@@ -18,8 +18,8 @@ def aws_model(file_model):
     model = tf.keras.models.load_model('object1')
     return model
 
-file_model = 'cnn_model_fine.h5'
-#file = 'cnn_model_fine.zip'
+#file_model = 'cnn_model_fine.h5'
+file_model = 'covidprojectmodel.h5'
 
 @st.cache(allow_output_mutation=True)
 def download_model():
